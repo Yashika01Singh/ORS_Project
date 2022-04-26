@@ -1,0 +1,97 @@
+<!DOCTYPE html>   
+<html>   
+<head>  
+<meta name="viewport" content="width=device-width, initial-scale=1">  
+<title> ORS Login  </title>  
+<style>   
+Body {  
+  font-family: Calibri, Helvetica, sans-serif;  
+  background:  #202020;;  
+}  
+button {   
+        background-color: #f7f8fa;   
+        width: 100%;  
+        padding: 15px;   
+        margin: 10px 0px;   
+        border: none;   
+        cursor: pointer;   
+         }   
+ form {   
+        border: 3px solid #f1f1f1;   
+    }   
+ input[type=text], input[type=password] {   
+        width: 100%;   
+        margin: 8px 0;  
+        padding-left: 12px ;
+        padding-top: 20px;
+        padding-right: 12px;
+        padding-bottom: 20px;   
+        display: inline-block;   
+        box-sizing: border-box;   
+    }  
+ button:hover {   
+        opacity: 0.7;   
+    }   
+
+  .cancelbtn {   
+    background-color: #f7f8fa;   
+        /* padding: 15px;    */
+        margin: 20px 0px;   
+        cursor: pointer;   
+        width: auto;   
+        /* padding: 10px 18px;   */
+        text-decoration: none;
+        color: black;
+    }   
+        
+     
+ .container {   
+        padding: 25px;   
+        background-color: #34495E;  
+    }   
+ .text{
+     color : white
+     
+ }
+ .text1{
+     color : black
+     
+ }
+
+</style>   
+</head>    
+<body>    
+    <center> <h1  class="text"> ORS Login </h1> </center>   
+        <form class="container" method="POST">
+            <center><h3 class="text">Username</h3> </center>  
+            username <input id="usr" type="text" placeholder="Enter Username" name="username" required>  
+            <center><h3 class="text">Password</h3>  </center> 
+            password <input id="pass" type="password" placeholder="Enter Password" name="password" required>  
+            
+            <!-- <button class="text1" type="submit">Login</button>  -->
+            <input type = "submit">
+            <!-- <input type="radio" value="Customer" name="type" (click)="NewLoginPage" checked>Customer</input>
+            <input type="radio" value="Seller" name="type">Seller -->
+            <!-- <button id="submitBtn" type="button" > </button>   -->
+        </form>     
+        <a href = "{{ url_for('NewCustomer')}}"> New to ORS?  Sign up Here</a>  
+        <footer>
+            <center><h5 class="text">All Rights Reserved 2022</h5></center>
+            <center><h5 class="text">ORS</h5></center>
+        </footer> 
+    
+
+    <script>
+        const form = document.querySelector("form");
+        form.addEventListener('submit',(e) =>{
+            e.preventDefault();
+            const username = document.querySelector("#usr").value;
+            const password = document.querySelector("#pass").value;
+            console.log(username);
+            console.log(password);
+
+            window.location.replace("{{ url_for('ProductPage')}}");
+        })
+    </script>
+</body>     
+</html>  
