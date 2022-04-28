@@ -61,7 +61,7 @@ nav{
 </style>
 
 <body>
-  <form action="#" method="POST">
+  
 	<nav class ="nav" >
 		<h1>ORS Home</h1>
 		<ul class="navigation">
@@ -82,18 +82,15 @@ nav{
 <h2 class="text1"> Welcome Back!!</h2>
 
 
-<select name="Category" id = "Category" class="form-control" required>
-    <option value="">Select A category to view </option>
-    {% for i in x %}
-        
-        <option value={{i}}>{{i}}</option>
-    {% endfor %}
-  
+<select name="Product" id = "Product" class="form-control" required>
+  <option value="">Select A Product to view  </option>
+  {% for i in x %}
+      
+      <option value={{i[0]}}>{{i[2]}}</option>
+  {% endfor %}
+
 </select>
-
 <button type="submit" class="btn btn-success btn-lg rounded-pill" >Submit</button>
-
-</form>
 
 </body>
 </html>

@@ -54,7 +54,7 @@ button {
      
  }
  .text1{
-     color : black
+     color : rgb(254, 254, 254)
      
  }
 
@@ -62,18 +62,31 @@ button {
 </head>    
 <body>    
     <center> <h1  class="text"> ORS Login </h1> </center>   
-        <form class="container" method="POST">
-            <center><h3 class="text">Username</h3> </center>  
-            username <input id="usr" type="text" placeholder="Enter Username" name="username" required>  
-            <center><h3 class="text">Password</h3>  </center> 
-            password <input id="pass" type="password" placeholder="Enter Password" name="password" required>  
+    <form action="#" method="POST">
+                    
+
+        <div class="mb-3">
+          <label for="username" class="form-label mb-1" style="color:rgb(247, 242, 242); font-size:80%">Username*</label>
+          <input type="text" class="form-control" id="username" required name="username">
+          <div id="username" class="form-text" placeholder="Enter your username"></div>
+        </div>
+        <div class="mb-3">
+          <label for="password" class="form-label mb-1" style="color:rgb(240, 235, 235); font-size:80%">Password*</label>
+          <input type="password" class="form-control" id="password" required name="password">
+        </div>
+        <div class="mb-3 pt-1">
+            <label for="role" class="form-label mb-1" style="color:rgb(251, 248, 248); font-size:80%">Select Role*</label>
             
-            <!-- <button class="text1" type="submit">Login</button>  -->
-            <input type = "submit">
-            <!-- <input type="radio" value="Customer" name="type" (click)="NewLoginPage" checked>Customer</input>
-            <input type="radio" value="Seller" name="type">Seller -->
-            <!-- <button id="submitBtn" type="button" > </button>   -->
-        </form>     
+        </div>
+        <select class="form-select" required name="typeOf">
+            <option selected >--Select Role--</option>
+            <option value="Customer">Customer</option>
+            <option value="Vendor">Vendor</option>
+<!--                            <option value="Management">Management</option>-->
+        </select>
+        <button type="submit" class="btn btn-success btn-lg rounded-pill" >Login</button>
+    </form>
+
         <a href = "{{ url_for('NewCustomer')}}"> New to ORS?  Sign up Here</a>  
         <footer>
             <center><h5 class="text">All Rights Reserved 2022</h5></center>
@@ -81,17 +94,6 @@ button {
         </footer> 
     
 
-    <script>
-        const form = document.querySelector("form");
-        form.addEventListener('submit',(e) =>{
-            e.preventDefault();
-            const username = document.querySelector("#usr").value;
-            const password = document.querySelector("#pass").value;
-            console.log(username);
-            console.log(password);
-
-            window.location.replace("{{ url_for('ProductPage')}}");
-        })
-    </script>
+    
 </body>     
 </html>  
