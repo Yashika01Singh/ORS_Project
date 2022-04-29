@@ -135,29 +135,41 @@ def Order():
     if request.method=='POST':
         Price = 0
         Discount=0
+        VendorID=0
         userDetails1 = request.form
         ProductID = userDetails1['ProductID']
         Quantity = userDetails1['Quantity']
         cur = mysql.connection.cursor()
         cur.execute("SELECT MAX(CartID) From cart;")
-        result = (cur.fetchall()) 
+        result = cur.fetchall() 
         for r in result:
-            id = r[0]
-        
-        user = session["user"][0]
-        cur.execute("SELECT Price from ProductInventory where ProductInventory.ProductID = '{ProductID}'")
+            cartid = r[0]
+        cartid+=1
+        cur.execute(f"SELECT Price from ProductInventory where ProductID='{ProductID}'")
         result = cur.fetchall()
         for r in result:
             Price = r[0]
-        cur.execute("SELECT Discount from ProductInventory where ProductInventory.ProductID = '{ProductID}'")
+        cur.execute(f"SELECT Discount from ProductInventory where ProductID='{ProductID}'")
         result = cur.fetchall()
         for r in result:
             Discount = r[0]
-        #cur.execute("INSERT INTO CartContent(CartID, ProductID,Price,Discount) VALUES(%s,%s,%s,%s)" , (id+1,ProductID, Price,Discount))
-        #mysql.connection.commit()
+        CustomerID = session.get("user")[0]
+        cur.execute(f"SELECT VendorID from ProductInventory where ProductID='{ProductID}'")
+        result = cur.fetchall()
+        for r in result:
+            VendorID = r[0]
+        cur.execute("SELECT MAX(OrderID) from Orders")
+        result = cur.fetchall()
+        for r in result:
+            OrderID = r[0]
+        OrderID+=1
+        cur.execute("SET FOREIGN_KEY_CHECKS=0")
+        q="INSERT INTO Orders(CustomerID,OrderID,ProductID,VendorID,Amount,Quantity,Status,OrderDate,ExpectedDeliveryDate) VALUES (%s,%s,%s,%s,%s,%s,'Active','2022-04-23','2022-05-21');"
+        cur.execute(q,(CustomerID,OrderID,ProductID,VendorID,Price-Discount,Quantity))
+        mysql.connection.commit()
         
         cur.close()
-        return redirect(url_for("Product.html"))
+        return redirect(url_for("Product"))
     return render_template('Order.html')
 @app.route("/customer/orders", methods=["POST" , "GET"])
 def customerorder():
