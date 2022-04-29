@@ -165,7 +165,7 @@ def Order():
         OrderID+=1
         cur.execute("SET FOREIGN_KEY_CHECKS=0")
         q="INSERT INTO Orders(CustomerID,OrderID,ProductID,VendorID,Amount,Quantity,Status,OrderDate,ExpectedDeliveryDate) VALUES (%s,%s,%s,%s,%s,%s,'Active','2022-04-23','2022-05-21');"
-        cur.execute(q,(CustomerID,OrderID,ProductID,VendorID,Price-Discount,Quantity))
+        cur.execute(q,(CustomerID,OrderID,ProductID,VendorID,Price,Quantity))
         mysql.connection.commit()
         
         cur.close()
