@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>ORS CUSTOMER</title>
+	<title>ORS Customer Orders</title>
+  
 </head>
-
- <style> 
+<style>
+ 
 .text1{
 	color: rgb(255, 4, 4);
 }
@@ -60,14 +61,14 @@ nav{
 }
 </style>
 
+
 <body>
-  
 	<nav class ="nav" >
 		<h1>ORS Home</h1>
 		<ul class="navigation">
 		  <li><a href="/customer" class="nav-link">Home</a></li>
-		  <li><a href="{{ url_for('Order')}}"  class="nav-link">Place Order</a></li>
-		  <li><a href="/customer/orders" class="nav-link">Orders</a></li>
+		  <li><a href="/customer/place"  class="nav-link">Place Order</a></li>
+		  <li><a href="/customer/orders"  class="nav-link">Orders</a></li>
 		  <li><a href="/customer/profile" class="nav-link">Profile</a></li>
 		  <li><a href="/login" class= "nav-link" >LogOut</a></li>
 		</ul>
@@ -75,23 +76,35 @@ nav{
 		  <ion-icon class="bars" name="menu-outline"></ion-icon>
   
 		</button>
-    
 	  </nav>
-	  
 
-
-<h2 class="text1"> Welcome Back!!</h2>
-
-
-<select name="Product" id = "Product" class="form-control" required>
-  <option value="">Select A Product to view  </option>
-  {% for i in x %}
-      
-      <option value={{i[0]}}>{{i[0]}}   {{i[2]}}</option>
-  {% endfor %}
-
-</select>
-
-</form>
 </body>
+
+
+
+
+
+<div>
+{% block content %}
+<br>
+	<div >
+		<h2 style=" text-align: center;" >Your orders</h2>
+	<br>
+
+		{% for i in x %}
+		
+		<h3 >Order date : {{i[7]}}</h3>
+		<p >Order ID : {{i[1]}}</p>	
+		<p> Quantity : {{i[5]}}</p>
+		<p >Bill Amount: {{i[4]}}</p>
+		<p >Status: {{i[6]}}</p>
+
+
+		{% endfor %}
+
+	</div>
+{% endblock %}
+</div>
+
 </html>
+

@@ -4,7 +4,7 @@
 	<title>ORS CUSTOMER</title>
 </head>
 
- <style> 
+<style>
 .text1{
 	color: rgb(255, 4, 4);
 }
@@ -61,37 +61,44 @@ nav{
 </style>
 
 <body>
-  
 	<nav class ="nav" >
-		<h1>ORS Home</h1>
+		<h1>ORS Home </h1>
 		<ul class="navigation">
 		  <li><a href="/customer" class="nav-link">Home</a></li>
-		  <li><a href="{{ url_for('Order')}}"  class="nav-link">Place Order</a></li>
-		  <li><a href="/customer/orders" class="nav-link">Orders</a></li>
+		  <li><a href="/customer/place"  class="nav-link">Place Order</a></li>
+		  <li><a href="/customer/orders"  class="nav-link">Orders</a></li>
 		  <li><a href="/customer/profile" class="nav-link">Profile</a></li>
 		  <li><a href="/login" class= "nav-link" >LogOut</a></li>
 		</ul>
 		<button class="burger-menu" id="burger-menu">
 		  <ion-icon class="bars" name="menu-outline"></ion-icon>
-  
+
 		</button>
-    
 	  </nav>
-	  
+
 
 
 <h2 class="text1"> Welcome Back!!</h2>
 
 
-<select name="Product" id = "Product" class="form-control" required>
-  <option value="">Select A Product to view  </option>
-  {% for i in x %}
-      
-      <option value={{i[0]}}>{{i[0]}}   {{i[2]}}</option>
-  {% endfor %}
 
-</select>
+        {% for i in y %}
+        <h2>Payment Method</h2>
+        <p>{{i[0]}}</p>
+        <p>Number  : {{i[1]}}</p>
+        <p>Expiry Date : {{i[2]}}</p>
+        {% endfor %}
+        {% for j in x %}
+        <h2>Ongoing Orders</h2>
+        <p> ID : {{j[0]}}</p>
+        <p>Order ID : {{j[1]}}</p>
+        <p>Amount : {{j[2]}}</p>
+        <p> Vendor : {{j[3]}}</p>
+        {% endfor %}
 
-</form>
+  
+
+
+
 </body>
 </html>

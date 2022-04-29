@@ -1,14 +1,15 @@
 
 from unicodedata import category
 from unittest import result
-from flask import Flask, render_template, request,redirect, url_for
+from flask import Flask, render_template, request,redirect, url_for, session
 from flask_mysqldb import MySQL
 
 app = Flask(__name__)
+app.secret_key = "ORS"
 
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = ''
+app.config['MYSQL_PASSWORD'] = 'Yashika@123'
 app.config['MYSQL_DB'] = 'ORSFinal1'
 
 mysql = MySQL(app)
@@ -30,7 +31,9 @@ def index():
         if (typeOf == "Customer"):
             cur.execute('SELECT * from ors WHERE type= "Customer" AND username =%s AND Password= %s' , (username ,password))
             myresult = cur.fetchall()
+
             if (myresult):
+                    session["user"] = myresult[0]
                     return redirect(url_for("ProductPage"))
             return redirect(url_for("index"))
 
@@ -87,10 +90,10 @@ def Confirm():
     if resultValue > 0:
         userDetails1 = cur.fetchall()
         return render_template('ConfirmCustomer.html',userDetails1=userDetails1)
+
 @app.route('/ProductPage', methods=['POST', 'GET'])
 def ProductPage():
     if request.method=='GET':
-
         cur = mysql.connection.cursor()
         cur.execute("SELECT distinct(Type) from ProductList")
         myresult = cur.fetchall()
@@ -102,7 +105,7 @@ def ProductPage():
     if request.method=='POST':
        userDetails = request.form  
 
-       category = userDetails['Category']
+       category = userDetails["Category"]
        
        L=[]
        L.append(category)
@@ -114,7 +117,75 @@ def ProductPage():
         
        return render_template("Product.html",x=myresult)
 
+@app.route('/Product', methods=['POST', 'GET'])
+def Product():
+    if request.method=='GET':
+        return render_template("Product.html") 
 
-       
+    if request.method=='POST':
+       userDetails1 = request.form  
+
+       Product = userDetails1["Product"]     
+        
+       return render_template("Product.html")
+@app.route('/Order', methods=['POST', 'GET'])
+def Order():     
+    if( request.method=='GET'):
+       return render_template("Order.html") 
+    if request.method=='POST':
+        Price = 0
+        Discount=0
+        userDetails1 = request.form
+        ProductID = userDetails1['ProductID']
+        Quantity = userDetails1['Quantity']
+        cur = mysql.connection.cursor()
+        cur.execute("SELECT MAX(CartID) From cart;")
+        result = (cur.fetchall()) 
+        for r in result:
+            id = r[0]
+        
+        user = session["user"][0]
+        cur.execute("SELECT Price from ProductInventory where ProductInventory.ProductID = '{ProductID}'")
+        result = cur.fetchall()
+        for r in result:
+            Price = r[0]
+        cur.execute("SELECT Discount from ProductInventory where ProductInventory.ProductID = '{ProductID}'")
+        result = cur.fetchall()
+        for r in result:
+            Discount = r[0]
+        #cur.execute("INSERT INTO CartContent(CartID, ProductID,Price,Discount) VALUES(%s,%s,%s,%s)" , (id+1,ProductID, Price,Discount))
+        #mysql.connection.commit()
+        
+        cur.close()
+        return redirect(url_for("Product.html"))
+    return render_template('Order.html')
+@app.route("/customer/orders", methods=["POST" , "GET"])
+def customerorder():
+    cur = mysql.connection.cursor()
+    if "user" in session:
+        CustomerID = session.get("user")[0]
+        
+        cur.execute(f"SELECT * from Orders where CustomerID='{CustomerID}'")
+        myresult = cur.fetchall()
+
+        return render_template("customerOrders.html" , x = myresult)
+    else: 
+        return redirect(url_for("customer"))
+@app.route("/customer/profile" , methods=["POST" , "GET"])
+def customerProfile():
+    cur = mysql.connection.cursor();
+    cus= mysql.connection.cursor();
+
+    if "user" in session : 
+        CustomerID = session.get("user")[0]
+        cus.execute(f"SELECT z.ModeOfPayment , z.Cardno  , z.ExpiryDateYear from CustomerPaymentMethod as z where z.CustomerID = '{CustomerID}'")
+        cur.execute(f"SELECT  o.CustomerID ,o.OrderID,  o.Amount, v.Vendorname, o.Status from Orders as o , ProductList as p, Vendor as v, Customer as c where o.VendorID = v.VendorID and o.Status = 'Active' and o.CustomerID ='{CustomerID}'")
+        myresult = cur.fetchall();
+        myresult1 = cus.fetchall();
+        return render_template("customerProfile.html" , x = myresult , y = myresult1)
+        
+    else:
+        return redirect(url_for("customer"))       
 if __name__ == '__main__':
+    
     app.run(debug=True,port = 50001)

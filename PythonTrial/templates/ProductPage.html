@@ -61,12 +61,12 @@ nav{
 </style>
 
 <body>
-  <form action="#" method="POST">
+  
 	<nav class ="nav" >
 		<h1>ORS Home</h1>
 		<ul class="navigation">
 		  <li><a href="/customer" class="nav-link">Home</a></li>
-		  <li><a href="/customer/place"  class="nav-link">Place Order</a></li>
+		  <li><a href="{{ url_for('Order')}}"  class="nav-link">Place Order</a></li>
 		  <li><a href="/customer/orders"  class="nav-link">Orders</a></li>
 		  <li><a href="/customer/profile" class="nav-link">Profile</a></li>
 		  <li><a href="/login" class= "nav-link" >LogOut</a></li>
@@ -77,7 +77,7 @@ nav{
 		</button>
 	  </nav>
 	  
-
+  <form action=# method="POST">
 
 <h2 class="text1"> Welcome Back!!</h2>
 
