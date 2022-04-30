@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>ORS CUSTOMER</title>
+	<title>ORS Queries</title>
 </head>
 
  <style> 
@@ -67,35 +67,52 @@ nav{
 		<ul class="navigation">
 		  <li><a href="/customer" class="nav-link">Home</a></li>
 		  <li><a href="{{ url_for('Order')}}"  class="nav-link">Place Order</a></li>
-		  <li><a href="/customer/orders"  class="nav-link">Orders</a></li>
+		  <li><a href="/customer/orders" class="nav-link">Orders</a></li>
 		  <li><a href="/customer/profile" class="nav-link">Profile</a></li>
 		  <li><a href="/login" class= "nav-link" >LogOut</a></li>
-		  <li><a href = "/queries" class = "nav-link">Queries</a></li>
-
+      <li><a href = "/queries" class = "nav-link">Queries</a></li>
 		</ul>
 		<button class="burger-menu" id="burger-menu">
 		  <ion-icon class="bars" name="menu-outline"></ion-icon>
   
 		</button>
+    
 	  </nav>
 	  
-  <form action=# method="POST">
-
-<h2 class="text1"> Welcome Back!!</h2>
 
 
-<select name="Category" id = "Category" class="form-control" required>
-    <option value="">Select A category to view </option>
-    {% for i in x %}
+<h2 class="text1"> Queries </h2>
+
+<form action="#" method="POST">
+                    
+
         
-        <option value={{i}}>{{i}}</option>
-    {% endfor %}
-  
-</select>
+        <label for="role" class="form-label mb-1" style="color:rgb(251, 248, 248); font-size:80%">Select Role*</label>
+            
+        </div>
+        <select class="form-select" required name="queryno">
+            <option selected >--Select Query--</option>
+            <option value="query1">query1</option>
+            <option value="query2">query2</option>
+            <option value="query3">query3</option>
+            <option value="query4">query4</option>
+            <option value="query5">query5</option>
+            <option value="query6">query6</option>
+            <option value="query7">query7</option>
+            <option value="query8">query8</option>
+            <option value="query9">query9</option>
+            <option value="query10">query10</option>
+            <option value="query11">query11</option>
+            <option value="query12">query12</option>
+            <option value="query13">query13</option>
+            <option value="query14">query14</option>
+            
 
-<button type="submit" class="btn btn-success btn-lg rounded-pill" >Submit</button>
+        </select>
+        <button type="submit" class="btn btn-success btn-lg rounded-pill" >Submit</button>
+    </form>
 
-</form>
+
 
 </body>
 </html>

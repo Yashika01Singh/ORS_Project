@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- Query 1's html file -->
+<table border = 1>
+    {% for i in x %}
+    <tr>
+      <td> CustomerID : {{i[0]}} </td>
+      <td>TransactionID :    {{i[1]}} </td>
+      <td> Payment Status  :     {{i[2]}} </td>
+    </tr>
+    {% endfor %}
+  </table>
+</body>
+</html>
